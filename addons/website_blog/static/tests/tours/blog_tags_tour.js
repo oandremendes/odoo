@@ -59,12 +59,12 @@ registerWebsitePreviewTour('blog_tags', {
         content: "Verify tag does not appear in blog post anymore",
         trigger: ":iframe #o_wblog_post_content div:has(.badge):not(:contains(testtag))",
     }, {
-        content: "Go back to /blog",
+        content: "Go back to /live",
         trigger: ":iframe .top_menu a[href='/blog'] span",
         run: "click",
     }, {
         content: "Click on the adventure tag",
-        trigger: ":iframe a[href^='/blog/tag/adventure']",
+        trigger: ":iframe a[href^='/live/tag/adventure']",
         run: "click",
     }, {
         content: "Verify we are still on the backend",

@@ -77,7 +77,7 @@
                     </a>
                     <div class="d-flex justify-content-between small">
                         <t t-call="website_blog.s_dynamic_snippet_template_author"/>
-                        <span class="text-muted">In <a class="fw-bold" t-field="record.blog_id.name" t-att-href="'/blog/%s' % record.blog_id.id" />
+                        <span class="text-muted">In <a class="fw-bold" t-field="record.blog_id.name" t-att-href="'/live/%s' % record.blog_id.id" />
                             <a t-if="is_sample" class="fw-bold" href="#">Sample</a>
                         </span>
                     </div>
@@ -107,7 +107,7 @@
             </a>
             <div class="card-footer d-flex justify-content-between mt-auto border-0 p-3 pt-0 bg-transparent small">
                 <t t-call="website_blog.s_dynamic_snippet_template_author"/>
-                <span class="text-muted">In <a class="fw-bold" t-field="record.blog_id.name" t-att-href="'/blog/%s' % record.blog_id.id" />
+                <span class="text-muted">In <a class="fw-bold" t-field="record.blog_id.name" t-att-href="'/live/%s' % record.blog_id.id" />
                     <a t-if="is_sample" class="fw-bold" href="#">Sample</a>
                 </span>
             </div>

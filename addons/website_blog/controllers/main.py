@@ -164,21 +164,21 @@ class WebsiteBlog(http.Controller):
         }
 
     @http.route([
-        '/blog',
-        '/blog/page/<int:page>',
-        '/blog/tag/<string:tag>',
-        '/blog/tag/<string:tag>/page/<int:page>',
-        '''/blog/<model("blog.blog"):blog>''',
-        '''/blog/<model("blog.blog"):blog>/page/<int:page>''',
-        '''/blog/<model("blog.blog"):blog>/tag/<string:tag>''',
-        '''/blog/<model("blog.blog"):blog>/tag/<string:tag>/page/<int:page>''',
+        '/live',
+        '/live/page/<int:page>',
+        '/live/tag/<string:tag>',
+        '/live/tag/<string:tag>/page/<int:page>',
+        '''/live/<model("blog.blog"):blog>''',
+        '''/live/<model("blog.blog"):blog>/page/<int:page>''',
+        '''/live/<model("blog.blog"):blog>/tag/<string:tag>''',
+        '''/live/<model("blog.blog"):blog>/tag/<string:tag>/page/<int:page>''',
     ], type='http', auth="public", website=True, sitemap=True)
     def blog(self, blog=None, tag=None, page=1, search=None, **opt):
         Blog = request.env['blog.blog']
         blogs = tools.lazy(lambda: Blog.search(request.website.website_domain(), order="create_date asc, id asc"))
 
         if not blog and len(blogs) == 1:
-            url = QueryURL('/blog/%s' % request.env['ir.http']._slug(blogs[0]), search=search, **opt)()
+            url = QueryURL('/live/%s' % request.env['ir.http']._slug(blogs[0]), search=search, **opt)()
             return request.redirect(url, code=302)
 
         date_begin, date_end = opt.get('date_begin'), opt.get('date_end')
@@ -202,7 +202,7 @@ class WebsiteBlog(http.Controller):
 
         return request.render("website_blog.blog_post_short", values)
 
-    @http.route(['''/blog/<model("blog.blog"):blog>/feed'''], type='http', auth="public", website=True, sitemap=True)
+    @http.route(['''/live/<model("blog.blog"):blog>/feed'''], type='http', auth="public", website=True, sitemap=True)
     def blog_feed(self, blog, limit='15', **kwargs):
         v = {}
         v['blog'] = blog
@@ -213,14 +213,14 @@ class WebsiteBlog(http.Controller):
         return r
 
     @http.route([
-        '''/blog/<model("blog.blog"):blog>/post/<model("blog.post"):blog_post>''',
+        '''/live/<model("blog.blog"):blog>/post/<model("blog.post"):blog_post>''',
     ], type='http', auth="public", website=True, sitemap=False)
     def old_blog_post(self, blog, blog_post, **post):
         # Compatibility pre-v14
-        return request.redirect("/blog/%s/%s" % (request.env['ir.http']._slug(blog), request.env['ir.http']._slug(blog_post)), code=301)
+        return request.redirect("/live/%s/%s" % (request.env['ir.http']._slug(blog), request.env['ir.http']._slug(blog_post)), code=301)
 
     @http.route([
-        '''/blog/<model("blog.blog"):blog>/<model("blog.post", "[('blog_id','=',blog.id)]"):blog_post>''',
+        '''/live/<model("blog.blog"):blog>/<model("blog.post", "[('blog_id','=',blog.id)]"):blog_post>''',
     ], type='http', auth="public", website=True, sitemap=True)
     def blog_post(self, blog, blog_post, tag_id=None, page=1, enable_editor=None, **post):
         """ Prepare all values to display the blog.
@@ -248,7 +248,7 @@ class WebsiteBlog(http.Controller):
         blog_url = QueryURL('', ['blog', 'tag'], blog=blog_post.blog_id, tag=tag, date_begin=date_begin, date_end=date_end)
 
         if not blog_post.blog_id.id == blog.id:
-            return request.redirect("/blog/%s/%s" % (request.env['ir.http']._slug(blog_post.blog_id), request.env['ir.http']._slug(blog_post)), code=301)
+            return request.redirect("/live/%s/%s" % (request.env['ir.http']._slug(blog_post.blog_id), request.env['ir.http']._slug(blog_post)), code=301)
 
         tags = request.env['blog.tag'].search([])
 
@@ -260,7 +260,7 @@ class WebsiteBlog(http.Controller):
         all_post = BlogPost.search(blog_post_domain)
 
         if blog_post not in all_post:
-            return request.redirect("/blog/%s" % (request.env['ir.http']._slug(blog_post.blog_id)))
+            return request.redirect("/live/%s" % (request.env['ir.http']._slug(blog_post.blog_id)))
 
         # should always return at least the current post
         all_post_ids = all_post.ids

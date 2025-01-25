@@ -24,7 +24,7 @@ list of filtered posts (by date or tag).
 <template id="blog_post_short" name="Blog Posts">
     <t t-call="website_blog.index">
         <t t-set="head">
-            <link t-if="blog" t-att-href="'/blog/%s/feed' % slug(blog)" type="application/atom+xml" rel="alternate" title="Atom Feed"/>
+            <link t-if="blog" t-att-href="'/live/%s/feed' % slug(blog)" type="application/atom+xml" rel="alternate" title="Atom Feed"/>
             <meta t-if="active_tag_ids" name="robots" t-attf-content="none"/>
         </t>
 
@@ -339,7 +339,7 @@ list of filtered posts (by date or tag).
             <div t-attf-class="mx-auto #{readableClass}">
                 <div id="o_wblog_post_comments" t-attf-class="pt-4 o_container_small">
                     <div groups="base.group_public" class="small mb-4">
-                        <a t-attf-href="/web/login?redirect=/blog/{{slug(blog_post.blog_id)}}/{{slug(blog_post)}}#discussion" class="btn btn-sm btn-primary"><b>Sign in</b></a> to leave a comment
+                        <a t-attf-href="/web/login?redirect=/live/{{slug(blog_post.blog_id)}}/{{slug(blog_post)}}#discussion" class="btn btn-sm btn-primary"><b>Sign in</b></a> to leave a comment
                     </div>
                     <t t-call="portal.message_thread">
                         <t t-set="object" t-value="blog_post"/>
@@ -371,12 +371,12 @@ list of filtered posts (by date or tag).
                         <div class="d-flex text-end py-4">
                             <div class="flex-grow-1 pe-3">
                                 <span class="bg-o-color-3 h6 d-inline-block py-1 px-2 rounded-1">Read Next</span>
-                                <a t-att-href="'/blog/' + slug(next_post.blog_id) + '/' + slug(next_post)" t-att-title="'Read next' + next_post.name">
+                                <a t-att-href="'/live/' + slug(next_post.blog_id) + '/' + slug(next_post)" t-att-title="'Read next' + next_post.name">
                                     <div t-field="next_post.name" id="o_wblog_post_name" t-att-data-blog-id="next_post.id" placeholder="Blog Post Title" class="h2"/>
                                     <div t-field="next_post.subtitle" id="o_wblog_post_subtitle" placeholder="Subtitle" class="lead"/>
                                 </a>
                             </div>
-                            <a t-att-href="'/blog/' + slug(next_post.blog_id) + '/' + slug(next_post)" t-att-title="'Read next' + next_post.name" class="w-25 flex-shrink-0">
+                            <a t-att-href="'/live/' + slug(next_post.blog_id) + '/' + slug(next_post)" t-att-title="'Read next' + next_post.name" class="w-25 flex-shrink-0">
                                 <t t-call="website.record_cover">
                                     <t t-set="_record" t-value="next_post"/>
                                     <t t-set="additionnal_classes" t-value="'rounded shadow-sm overflow-hidden h-100'"/>
@@ -396,7 +396,7 @@ list of filtered posts (by date or tag).
 
                         <a id="o_wblog_next_post_info" class="d-none"
                            t-att-data-size="_cp.get('resize_class')"
-                           t-att-data-url="'/blog/' + slug(next_post.blog_id) + '/' + slug(next_post) + '?anim'"/>
+                           t-att-data-url="'/live/' + slug(next_post.blog_id) + '/' + slug(next_post) + '?anim'"/>
 
                         <t t-set="next_cover_is_full" t-value="bool({'o_full_screen_height', 'cover_full'}.intersection(_cp.get('resize_class', '').split(' ')))"/>
                         <t t-set="next_cover_is_auto" t-value="'cover_auto' in _cp.get('resize_class', '')"/>
@@ -437,8 +437,8 @@ list of filtered posts (by date or tag).
 <template id="blog_feed">&lt;?xml version="1.0" encoding="utf-8"?&gt;
 <feed t-att-xmlns="'http://www.w3.org/2005/Atom'">
     <title t-esc="blog.name"/>
-    <link t-att-href="'%s/blog/%s' % (base_url ,blog.id)"/>
-    <id t-esc="'%s/blog/%s' % (base_url, blog.id)"/>
+    <link t-att-href="'%s/live/%s' % (base_url ,blog.id)"/>
+    <id t-esc="'%s/live/%s' % (base_url, blog.id)"/>
     <updated t-esc="str(posts[0].post_date).replace(' ', 'T') + 'Z' if posts else ''"/>
     <entry t-foreach="posts" t-as="post">
         <title t-esc="post.name"/>

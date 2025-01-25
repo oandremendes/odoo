@@ -19,7 +19,7 @@
                     <a href="/blog" t-attf-class="nav-link fw-bold #{(not blog) and 'active'}">All</a>
                 </li>
                 <li class="nav-item" t-foreach="blogs" t-as="nav_blog">
-                    <a t-attf-href="/blog/#{slug(nav_blog)}" t-cache="nav_blog,blog and nav_blog.id == blog.id"
+                    <a t-attf-href="/live/#{slug(nav_blog)}" t-cache="nav_blog,blog and nav_blog.id == blog.id"
                        t-attf-class="nav-link #{(blog and nav_blog.id == blog.id) and 'active' or ''}">
                         <b t-field="nav_blog.name"/>
                     </a>
@@ -47,7 +47,7 @@
                                     <a href="/blog" t-attf-class="nav-link #{(not blog) and 'active'}" t-att-title="wblog_all_title_string">All</a>
                                 </li>
                                 <li t-foreach="blogs" t-as="nav_blog" class="nav-item">
-                                    <a t-attf-href="/blog/#{slug(nav_blog)}"
+                                    <a t-attf-href="/live/#{slug(nav_blog)}"
                                        t-attf-class="nav-link #{(blog and nav_blog.id == blog.id) and 'active' or ''}"
                                        t-att-title="nav_blog.name">
                                         <span t-field="nav_blog.name"/>
@@ -71,7 +71,7 @@
                             <a href="/blog" t-attf-class="dropdown-item #{(not blog) and 'active'}" title="All Blogs">All</a>
                         </li>
                         <li t-foreach="blogs" t-as="nav_blog">
-                            <a t-attf-href="/blog/#{slug(nav_blog)}"
+                            <a t-attf-href="/live/#{slug(nav_blog)}"
                                t-attf-class="dropdown-item #{(blog and nav_blog.id == blog.id) and 'active' or ''}"
                                t-att-title="nav_blog.name">
                                 <span t-field="nav_blog.name"/>
@@ -196,7 +196,7 @@ Options:
                 <a t-if="website.social_github" t-att-href="website.social_github" t-att-class="classes"><i class="fa fa-github text-github" aria-label="Github" title="Github"/></a>
                 <a t-if="website.social_instagram" t-att-href="website.social_instagram" t-att-class="classes"><i class="fa fa-instagram text-instagram" aria-label="Instagram" title="Instagram"/></a>
                 <a t-if="website.social_tiktok" t-att-href="website.social_tiktok" t-att-class="classes"><i class="fa fa-tiktok text-tiktok" aria-label="TikTok" title="TikTok"/></a>
-                <a t-if="blog" t-att-href="'/blog/%s/feed' % slug(blog)" t-att-class="classes"><i class="fa fa-rss-square" aria-label="RSS" title="RSS"/></a>
+                <a t-if="blog" t-att-href="'/live/%s/feed' % slug(blog)" t-att-class="classes"><i class="fa fa-rss-square" aria-label="RSS" title="RSS"/></a>
             </div>
             <t t-call="website_mail.follow" t-if="blog">
                 <t t-set="email" t-value="user_id.email"/>

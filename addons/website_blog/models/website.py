@@ -21,7 +21,7 @@ class Website(models.Model):
             })
             blog_menu_values = {
                 'name': blog['name'],
-                'url': '/blog/%s' % new_blog.id,
+                'url': '/live/%s' % new_blog.id,
                 'sequence': blog['sequence'],
                 'parent_id': menu_company.id if menu_company else self.menu_id.id,
                 'website_id': self.id,

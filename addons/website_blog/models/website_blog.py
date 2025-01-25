@@ -118,7 +118,7 @@ class Blog(models.Model):
     def _search_render_results(self, fetch_fields, mapping, icon, limit):
         results_data = super()._search_render_results(fetch_fields, mapping, icon, limit)
         for data in results_data:
-            data['url'] = '/blog/%s' % data['id']
+            data['url'] = '/live/%s' % data['id']
         return results_data
 
 class BlogTagCategory(models.Model):
@@ -162,7 +162,7 @@ class BlogPost(models.Model):
         super(BlogPost, self)._compute_website_url()
         for blog_post in self:
             if blog_post.id:
-                blog_post.website_url = "/blog/%s/%s" % (self.env['ir.http']._slug(blog_post.blog_id), self.env['ir.http']._slug(blog_post))
+                blog_post.website_url = "/live/%s/%s" % (self.env['ir.http']._slug(blog_post.blog_id), self.env['ir.http']._slug(blog_post))
 
     def _default_content(self):
         text = html_escape(_("Start writing here..."))

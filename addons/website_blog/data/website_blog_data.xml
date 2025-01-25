@@ -30,7 +30,7 @@
         <record id="action_open_website" model="ir.actions.act_url">
             <field name="name">Website Blogs</field>
             <field name="target">self</field>
-            <field name="url" eval="'/blog/'"/>
+            <field name="url" eval="'/live/'"/>
         </record>
         <record id="base.open_menu" model="ir.actions.todo">
             <field name="action_id" ref="action_open_website"/>
